@@ -1,101 +1,110 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: exam <marvin@42.fr>                        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/05 12:16:29 by exam              #+#    #+#             */
-/*   Updated: 2017/10/05 16:56:53 by exam             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include<stdio.h>
+#include<stdlib.h>
 
-#include <stdlib.h>
+long long absolut(long long n)
+{
+	if (n < 0)
+	{
+		n = -1 * n;
+		return (n);
+	}
+	else
+	{
+		return (n);
+	}
+}
 
-char	test_base(int nb)
+void ft_rev(char *str)
+{
+	int start;
+	int end;
+	char temp;
+	
+	start = 0;
+	end = 0;
+	while (str[end])
+	{
+		end++;
+	}
+	end--;
+	while (start < end)
+	{
+		temp = str[start];
+		str[start] = str[end];
+		str[end] = temp;
+		start++;
+		end--;
+	}
+}
+
+char ft_itoa(int value)
 {
 	char c;
-
-	if (nb >= 0 && nb <= 9)
-		c = nb + '0';
-	else if (nb >= 10 && nb <= 16)
-		c = 'A' - 10 + nb;
-	else
-		c = '\0';
+	
+	if (0 <= value && value <= 9)
+	{
+		c = value + '0';
+	}
+	else 
+	{
+		c = value + 55;
+	}
 	return (c);
 }
 
-int		modul(long int n)
+char *ft_itoa_base(int value, int base)
 {
-	if (n < 0)
-		return (-n);
-	else
-		return (n);
-}
-
-int		ft_len(int n, int base)
-{
-	int len;
-	int nr;
-	int i;
-	int b;
-	
-	b = n;
-	nr = n;
-	len = 0;
-	if (n <= 0)
-		len++;
-	while (nr != 0)
-		{
-			len++;
-			nr = modul(nr / base);
-		}	
-		if (base > 10)
-		{
-			i = -1;
-			while (b !=  0)
-			{
-				if (modul(b % base) >= 10)
-				{	
-					i++;
-				}
-				b = modul(b / 10);
-			}
-			len = len - i;
-		}
-	return (len);
-}
-
-char	*ft_itoa_base(int value, int base)
-{
-	int n;
 	char *str;
-	int len;
 	char c;
+	int i;
+	int n;
+	long long value2;
 	
-	len = ft_len(value, base);
-	str = (char*)malloc(sizeof(char) * (len + 1));
-	str[len] = '\0';
-	if (value == 0)
+	value2 = (long long)value;
+	str = (char*)malloc(sizeof(char)*32); //longest string for max/min int in base 2
+	if (str == NULL)
+	{
+		return (0);
+	}
+	i = 0;
+	if (value2 == 0)
 	{
 		str[0] = '0';
+		str[1] = '\0';
 		return (str);
 	}
-	len--;
-	n = value;
-	c = test_base(modul(n % base));
-		while (n != 0 && c)
-		{
-			if (n < 0 && base == 10)
-			{
-				str[0] = '-';
-			}
-			if (n < 0 && base!= 10)
-				len--;
-			str[len] = c;
-			n = modul(n / base);	
-			len--;
-			c = test_base(modul(n % base));
-		}
+	if (value2 < 0)
+	{
+		value2 = absolut(value2);	
+	}
+
+	printf("value2=%ld\n", value2);
+
+	while (value2 > 0)
+	{
+		n = value2 % base;
+		value2 = value2 / base;
+		printf("%d ", n);
+		str[i] = ft_itoa(n);
+		printf("\nstr[%d]=%c ", i, str[i]);
+		i++;
+	}
+	if (value < 0 && base == 10)
+	{
+		str[i] = '-';
+		i++;
+	}
+	str[i] = '\0';
+	ft_rev(str);
 	return (str);
+}
+
+void main()
+{
+	int n;
+	int b;
+	
+	n = -1567;
+	b = 8;
+	printf("\n%d in baza %d = %s", n, b, ft_itoa_base(n,b));
 }
