@@ -61,7 +61,7 @@ char *ft_itoa_base(int value, int base)
 	long long value2;
 	
 	value2 = (long long)value;
-	str = (char*)malloc(sizeof(char)*32); //longest string for max/min int in base 2
+	str = (char*)malloc(sizeof(char)*32); //longest string for absolut(min int) in base 2
 	if (str == NULL)
 	{
 		return (0);
@@ -77,16 +77,11 @@ char *ft_itoa_base(int value, int base)
 	{
 		value2 = absolut(value2);	
 	}
-
-	printf("value2=%ld\n", value2);
-
 	while (value2 > 0)
 	{
 		n = value2 % base;
 		value2 = value2 / base;
-		printf("%d ", n);
 		str[i] = ft_itoa(n);
-		printf("\nstr[%d]=%c ", i, str[i]);
 		i++;
 	}
 	if (value < 0 && base == 10)
