@@ -5,7 +5,7 @@ long long absolut(long long n)
 {
 	if (n < 0)
 	{
-		n = -1 * n;
+		n = - n;
 		return (n);
 	}
 	else
@@ -61,7 +61,7 @@ char *ft_itoa_base(int value, int base)
 	long long value2;
 	
 	value2 = (long long)value;
-	str = (char*)malloc(sizeof(char)*32); //longest string for absolut(min int) in base 2
+	str = (char*)malloc(sizeof(char)*33); //longest string for absolut(min int) in base 2
 	if (str == NULL)
 	{
 		return (0);
