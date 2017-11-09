@@ -1,11 +1,3 @@
-Write a function that converts an integer value to a null-terminated string using the specified base and stores the result in a char array that you must
-allocate.
-The base is expressed as an integer, from 2 to 16. The characters comprising the base are the digits from 0 to 9, followed by uppercase letter from A to F.
-For example, base 4 would be "0123" and base 16 "0123456789ABCDEF".
-If base is 10 and value is negative, the resulting string is preceded with a minus sign (-). With any other base, value is always considered unsigned.
-Your function must be declared as follows:
-char	*ft_itoa_base(int value, int base);
-
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -22,7 +14,7 @@ long long absolut(long long n)
 	}
 }
 
-void ft_rev(char *str)
+void ft_rev(char *str) //reverse string
 {
 	int start;
 	int end;
@@ -45,7 +37,7 @@ void ft_rev(char *str)
 	}
 }
 
-char ft_itoa(int value)
+char ft_itoa(int value) //integer to alpha
 {
 	char c;
 	
@@ -100,14 +92,4 @@ char *ft_itoa_base(int value, int base)
 	str[i] = '\0';
 	ft_rev(str);
 	return (str);
-}
-
-void main()
-{
-	int n;
-	int b;
-	
-	n = -1567;
-	b = 8;
-	printf("\n%d in baza %d = %s", n, b, ft_itoa_base(n,b));
 }
